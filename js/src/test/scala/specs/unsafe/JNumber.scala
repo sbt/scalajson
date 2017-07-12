@@ -27,45 +27,45 @@ object JNumber extends TestSuite with UTestScalaCheck {
 
   def readLongJNumber =
     forAll { l: Long =>
-      scalajson.ast.unsafe.JNumber(l).value == l.toString
+      sjsonnew.shaded.scalajson.ast.unsafe.JNumber(l).value == l.toString
     }.checkUTest()
 
   def readBigDecimalJNumber =
     forAll { b: BigDecimal =>
-      scalajson.ast.unsafe.JNumber(b).value == b.toString()
+      sjsonnew.shaded.scalajson.ast.unsafe.JNumber(b).value == b.toString()
     }.checkUTest()
 
   def readBigIntJNumber =
     forAll { b: BigInt =>
-      scalajson.ast.unsafe.JNumber(b).value == b.toString()
+      sjsonnew.shaded.scalajson.ast.unsafe.JNumber(b).value == b.toString()
     }.checkUTest()
 
   def readIntJNumber =
     forAll { i: Int =>
-      scalajson.ast.unsafe.JNumber(i).value == i.toString
+      sjsonnew.shaded.scalajson.ast.unsafe.JNumber(i).value == i.toString
     }.checkUTest()
 
   def readDoubleJNumber =
     forAll { d: Double =>
-      scalajson.ast.unsafe.JNumber(d).value == d.toString
+      sjsonnew.shaded.scalajson.ast.unsafe.JNumber(d).value == d.toString
     }.checkUTest()
 
   def readDoubleNANJNumber = {
-    scalajson.ast.unsafe.JNumber(Double.NaN).value match {
+    sjsonnew.shaded.scalajson.ast.unsafe.JNumber(Double.NaN).value match {
       case "NaN" => true
       case _ => false
     }
   }
 
   def readDoublePositiveInfinityJNumber = {
-    scalajson.ast.unsafe.JNumber(Double.PositiveInfinity).value match {
+    sjsonnew.shaded.scalajson.ast.unsafe.JNumber(Double.PositiveInfinity).value match {
       case "Infinity" => true
       case _ => false
     }
   }
 
   def readDoubleNegativeInfinityJNumber = {
-    scalajson.ast.unsafe.JNumber(Double.NegativeInfinity).value match {
+    sjsonnew.shaded.scalajson.ast.unsafe.JNumber(Double.NegativeInfinity).value match {
       case "-Infinity" => true
       case _ => false
     }
@@ -73,17 +73,17 @@ object JNumber extends TestSuite with UTestScalaCheck {
 
   def readFloatJNumber =
     forAll { f: Float =>
-      scalajson.ast.unsafe.JNumber(f).value == f.toString
+      sjsonnew.shaded.scalajson.ast.unsafe.JNumber(f).value == f.toString
     }.checkUTest()
 
   def readShortJNumber =
     forAll { s: Short =>
-      scalajson.ast.unsafe.JNumber(s).value == s.toString
+      sjsonnew.shaded.scalajson.ast.unsafe.JNumber(s).value == s.toString
     }.checkUTest()
 
   def readStringJNumber =
     forAll { s: String =>
-      scalajson.ast.unsafe.JNumber(s).value == s.toString
+      sjsonnew.shaded.scalajson.ast.unsafe.JNumber(s).value == s.toString
     }.checkUTest()
 
   def readStringJNumberDetect =
@@ -97,7 +97,7 @@ object JNumber extends TestSuite with UTestScalaCheck {
           .isEmpty
       } ==> {
         scala.util
-          .Try(BigDecimal(scalajson.ast.unsafe.JNumber(s).value))
+          .Try(BigDecimal(sjsonnew.shaded.scalajson.ast.unsafe.JNumber(s).value))
           .toOption
           .isEmpty == true
       }
@@ -105,11 +105,11 @@ object JNumber extends TestSuite with UTestScalaCheck {
 
   def toJsAny =
     forAll { d: Double =>
-      scalajson.ast.unsafe.JNumber(d).toJsAny == d
+      sjsonnew.shaded.scalajson.ast.unsafe.JNumber(d).toJsAny == d
     }.checkUTest()
 
   def toStandard =
     forAll { b: BigDecimal =>
-      scalajson.ast.unsafe.JNumber(b).toStandard == scalajson.ast.JNumber(b)
+      sjsonnew.shaded.scalajson.ast.unsafe.JNumber(b).toStandard == sjsonnew.shaded.scalajson.ast.JNumber(b)
     }.checkUTest()
 }

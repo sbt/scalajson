@@ -1,4 +1,4 @@
-package scalajson.ast
+package sjsonnew.shaded.scalajson.ast
 
 /** Represents a valid JSON Value
   *

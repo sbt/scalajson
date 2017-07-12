@@ -49,9 +49,9 @@ lazy val root = project
   )
 
 lazy val commonSettings = Seq(
-  name := "scalajson",
+  name := "shaded-scalajson",
   version := "1.0.0-M4",
-  organization := "org.scala-lang.platform",
+  organization := "com.eed3si9n",
   scalacOptions ++= Seq(
     "-encoding",
     "UTF-8",

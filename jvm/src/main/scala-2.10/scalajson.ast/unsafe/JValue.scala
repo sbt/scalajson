@@ -1,8 +1,8 @@
-package scalajson.ast
+package sjsonnew.shaded.scalajson.ast
 package unsafe
 
-import scalajson.ast
-import scalajson.ast._
+import sjsonnew.shaded.scalajson.ast
+import sjsonnew.shaded.scalajson.ast._
 
 /** Represents a JSON Value which may be invalid. Internally uses mutable
   * collections when its desirable to do so, for performance and other reasons

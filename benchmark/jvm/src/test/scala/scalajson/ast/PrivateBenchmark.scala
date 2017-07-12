@@ -1,4 +1,4 @@
-package scalajson.ast
+package sjsonnew.shaded.scalajson.ast
 
 import benchmark.Generators
 import org.scalameter.Bench

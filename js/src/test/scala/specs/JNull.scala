@@ -13,14 +13,14 @@ object JNull extends TestSuite with UTestScalaCheck {
   }
 
   def toJsAny = {
-    scalajson.ast.JNull.toJsAny == null
+    sjsonnew.shaded.scalajson.ast.JNull.toJsAny == null
   }
 
   def toUnsafe = {
-    scalajson.ast.JNull.toUnsafe == scalajson.ast.unsafe.JNull
+    sjsonnew.shaded.scalajson.ast.JNull.toUnsafe == sjsonnew.shaded.scalajson.ast.unsafe.JNull
   }
 
   def testEquals = {
-    scalajson.ast.JNull == scalajson.ast.JNull
+    sjsonnew.shaded.scalajson.ast.JNull == sjsonnew.shaded.scalajson.ast.JNull
   }
 }

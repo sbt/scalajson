@@ -1,7 +1,7 @@
 package specs.unsafe
 
 import specs.Spec
-import scalajson.ast.unsafe._
+import sjsonnew.shaded.scalajson.ast.unsafe._
 import Generators._
 
 class JValue extends Spec {
@@ -11,19 +11,19 @@ class JValue extends Spec {
    equals $testEquals
   """
 
-  def testEquals = prop { jValue: scalajson.ast.unsafe.JValue =>
+  def testEquals = prop { jValue: sjsonnew.shaded.scalajson.ast.unsafe.JValue =>
     val cloned = jValue match {
-      case scalajson.ast.unsafe.JNull => scalajson.ast.unsafe.JNull
-      case jNumber: scalajson.ast.unsafe.JNumber =>
-        scalajson.ast.unsafe.JNumber(jNumber.value)
-      case jString: scalajson.ast.unsafe.JString =>
-        scalajson.ast.unsafe.JString(jString.value)
-      case jArray: scalajson.ast.unsafe.JArray =>
-        scalajson.ast.unsafe.JArray(jArray.value)
-      case jObject: scalajson.ast.unsafe.JObject =>
-        scalajson.ast.unsafe.JObject(jObject.value)
-      case jBoolean: scalajson.ast.unsafe.JBoolean =>
-        scalajson.ast.unsafe.JBoolean(jBoolean.get)
+      case sjsonnew.shaded.scalajson.ast.unsafe.JNull => sjsonnew.shaded.scalajson.ast.unsafe.JNull
+      case jNumber: sjsonnew.shaded.scalajson.ast.unsafe.JNumber =>
+        sjsonnew.shaded.scalajson.ast.unsafe.JNumber(jNumber.value)
+      case jString: sjsonnew.shaded.scalajson.ast.unsafe.JString =>
+        sjsonnew.shaded.scalajson.ast.unsafe.JString(jString.value)
+      case jArray: sjsonnew.shaded.scalajson.ast.unsafe.JArray =>
+        sjsonnew.shaded.scalajson.ast.unsafe.JArray(jArray.value)
+      case jObject: sjsonnew.shaded.scalajson.ast.unsafe.JObject =>
+        sjsonnew.shaded.scalajson.ast.unsafe.JObject(jObject.value)
+      case jBoolean: sjsonnew.shaded.scalajson.ast.unsafe.JBoolean =>
+        sjsonnew.shaded.scalajson.ast.unsafe.JBoolean(jBoolean.get)
     }
     jValue must beEqualTo(cloned)
   }

@@ -32,7 +32,7 @@ object JBoolean extends TestSuite with UTestScalaCheck {
 
   def readBooleanJBoolean =
     forAll { b: Boolean =>
-      scalajson.ast.JBoolean(b).get == b
+      sjsonnew.shaded.scalajson.ast.JBoolean(b).get == b
     }.checkUTest()
 
   def readBooleanJBooleanPatternMatchJBooleanTrue =
@@ -40,8 +40,8 @@ object JBoolean extends TestSuite with UTestScalaCheck {
       {
         b == true
       } ==> {
-        val result = scalajson.ast.JBoolean(b) match {
-          case f @ scalajson.ast.JBoolean(true) => f
+        val result = sjsonnew.shaded.scalajson.ast.JBoolean(b) match {
+          case f @ sjsonnew.shaded.scalajson.ast.JBoolean(true) => f
         }
         result.get == b
       }
@@ -49,8 +49,8 @@ object JBoolean extends TestSuite with UTestScalaCheck {
 
   def readBooleanJBooleanPatternMatchJBooleanTrueFail = {
     try {
-      scalajson.ast.JBoolean(true) match {
-        case f @ scalajson.ast.JBoolean(false) => f
+      sjsonnew.shaded.scalajson.ast.JBoolean(true) match {
+        case f @ sjsonnew.shaded.scalajson.ast.JBoolean(false) => f
       }
     } catch {
       case _: MatchError => true
@@ -63,8 +63,8 @@ object JBoolean extends TestSuite with UTestScalaCheck {
       {
         b == false
       } ==> {
-        val result = scalajson.ast.JBoolean(b) match {
-          case f @ scalajson.ast.JBoolean(false) => f
+        val result = sjsonnew.shaded.scalajson.ast.JBoolean(b) match {
+          case f @ sjsonnew.shaded.scalajson.ast.JBoolean(false) => f
         }
         result.get == b
       }
@@ -72,8 +72,8 @@ object JBoolean extends TestSuite with UTestScalaCheck {
 
   def readBooleanJBooleanPatternMatchJBooleanFalseFail = {
     try {
-      scalajson.ast.JBoolean(false) match {
-        case f @ scalajson.ast.JBoolean(true) => f
+      sjsonnew.shaded.scalajson.ast.JBoolean(false) match {
+        case f @ sjsonnew.shaded.scalajson.ast.JBoolean(true) => f
       }
     } catch {
       case _: MatchError => true
@@ -84,8 +84,8 @@ object JBoolean extends TestSuite with UTestScalaCheck {
   def readBooleanJBooleanPatternMatchJTrue =
     forAll { b: Boolean =>
       (b == true) ==> {
-        val result = scalajson.ast.JBoolean(b) match {
-          case f @ scalajson.ast.JTrue => f
+        val result = sjsonnew.shaded.scalajson.ast.JBoolean(b) match {
+          case f @ sjsonnew.shaded.scalajson.ast.JTrue => f
         }
         result.get == b
       }
@@ -93,8 +93,8 @@ object JBoolean extends TestSuite with UTestScalaCheck {
 
   def readBooleanJBooleanPatternMatchJTrueFail = {
     try {
-      scalajson.ast.JBoolean(true) match {
-        case f @ scalajson.ast.JFalse => f
+      sjsonnew.shaded.scalajson.ast.JBoolean(true) match {
+        case f @ sjsonnew.shaded.scalajson.ast.JFalse => f
       }
     } catch {
       case _: MatchError => true
@@ -105,8 +105,8 @@ object JBoolean extends TestSuite with UTestScalaCheck {
   def readBooleanJBooleanPatternMatchJFalse =
     forAll { b: Boolean =>
       (b == false) ==> {
-        val result = scalajson.ast.JBoolean(b) match {
-          case f @ scalajson.ast.JFalse => f
+        val result = sjsonnew.shaded.scalajson.ast.JBoolean(b) match {
+          case f @ sjsonnew.shaded.scalajson.ast.JFalse => f
         }
         result.get == b
       }
@@ -114,8 +114,8 @@ object JBoolean extends TestSuite with UTestScalaCheck {
 
   def readBooleanJBooleanPatternMatchJFalseFail = {
     try {
-      scalajson.ast.JBoolean(false) match {
-        case f @ scalajson.ast.JTrue => f
+      sjsonnew.shaded.scalajson.ast.JBoolean(false) match {
+        case f @ sjsonnew.shaded.scalajson.ast.JTrue => f
       }
     } catch {
       case _: MatchError => true
@@ -126,29 +126,29 @@ object JBoolean extends TestSuite with UTestScalaCheck {
   def readBooleanJTrue =
     forAll { b: Boolean =>
       (b == true) ==> {
-        scalajson.ast.JTrue.get == b
+        sjsonnew.shaded.scalajson.ast.JTrue.get == b
       }
     }.checkUTest()
 
   def readBooleanJFalse =
     forAll { b: Boolean =>
       (b == false) ==> {
-        scalajson.ast.JFalse.get == b
+        sjsonnew.shaded.scalajson.ast.JFalse.get == b
       }
     }.checkUTest()
 
   def testEquals =
     forAll { b: Boolean =>
-      scalajson.ast.JBoolean(b) == scalajson.ast.JBoolean(b)
+      sjsonnew.shaded.scalajson.ast.JBoolean(b) == sjsonnew.shaded.scalajson.ast.JBoolean(b)
     }.checkUTest()
 
   def toJsAny =
     forAll { b: Boolean =>
-      scalajson.ast.JBoolean(b).toJsAny == b
+      sjsonnew.shaded.scalajson.ast.JBoolean(b).toJsAny == b
     }.checkUTest()
 
   def toUnsafe =
     forAll { b: Boolean =>
-      scalajson.ast.JBoolean(b).toUnsafe == scalajson.ast.unsafe.JBoolean(b)
+      sjsonnew.shaded.scalajson.ast.JBoolean(b).toUnsafe == sjsonnew.shaded.scalajson.ast.unsafe.JBoolean(b)
     }.checkUTest()
 }

@@ -1,4 +1,4 @@
-package scalajson.ast
+package sjsonnew.shaded.scalajson.ast
 
 import scala.scalajs.js
 

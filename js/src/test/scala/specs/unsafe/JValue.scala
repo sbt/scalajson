@@ -14,20 +14,20 @@ object JValue extends TestSuite with UTestScalaCheck {
   }
 
   def testEquals =
-    forAll { jValue: scalajson.ast.unsafe.JValue =>
+    forAll { jValue: sjsonnew.shaded.scalajson.ast.unsafe.JValue =>
       // Is there a better way to do this?
       val cloned = jValue match {
-        case scalajson.ast.unsafe.JNull => scalajson.ast.unsafe.JNull
-        case jNumber: scalajson.ast.unsafe.JNumber =>
-          scalajson.ast.unsafe.JNumber(jNumber.value)
-        case jString: scalajson.ast.unsafe.JString =>
-          scalajson.ast.unsafe.JString(jString.value)
-        case jArray: scalajson.ast.unsafe.JArray =>
-          scalajson.ast.unsafe.JArray(jArray.value)
-        case jObject: scalajson.ast.unsafe.JObject =>
-          scalajson.ast.unsafe.JObject(jObject.value)
-        case jBoolean: scalajson.ast.unsafe.JBoolean =>
-          scalajson.ast.unsafe.JBoolean(jBoolean.get)
+        case sjsonnew.shaded.scalajson.ast.unsafe.JNull => sjsonnew.shaded.scalajson.ast.unsafe.JNull
+        case jNumber: sjsonnew.shaded.scalajson.ast.unsafe.JNumber =>
+          sjsonnew.shaded.scalajson.ast.unsafe.JNumber(jNumber.value)
+        case jString: sjsonnew.shaded.scalajson.ast.unsafe.JString =>
+          sjsonnew.shaded.scalajson.ast.unsafe.JString(jString.value)
+        case jArray: sjsonnew.shaded.scalajson.ast.unsafe.JArray =>
+          sjsonnew.shaded.scalajson.ast.unsafe.JArray(jArray.value)
+        case jObject: sjsonnew.shaded.scalajson.ast.unsafe.JObject =>
+          sjsonnew.shaded.scalajson.ast.unsafe.JObject(jObject.value)
+        case jBoolean: sjsonnew.shaded.scalajson.ast.unsafe.JBoolean =>
+          sjsonnew.shaded.scalajson.ast.unsafe.JBoolean(jBoolean.get)
       }
       jValue == cloned
     }.checkUTest()

@@ -3,7 +3,7 @@ package specs.unsafe
 import org.scalacheck.Prop._
 import utest._
 
-import scalajson.ast._
+import sjsonnew.shaded.scalajson.ast._
 import Generators._
 import specs.{UTestScalaCheck, Utils}
 
@@ -19,11 +19,11 @@ object JObject extends TestSuite with UTestScalaCheck {
   }
 
   def toStandard =
-    forAll { jObject: scalajson.ast.unsafe.JObject =>
+    forAll { jObject: sjsonnew.shaded.scalajson.ast.unsafe.JObject =>
       val values = jObject.value.map { x =>
         (x.field, x.value.toStandard)
       }.toMap
 
-      jObject.toStandard == scalajson.ast.JObject(values)
+      jObject.toStandard == sjsonnew.shaded.scalajson.ast.JObject(values)
     }.checkUTest()
 }

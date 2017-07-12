@@ -1,7 +1,7 @@
 package specs.unsafe
 
 import specs.Spec
-import scalajson.ast.unsafe._
+import sjsonnew.shaded.scalajson.ast.unsafe._
 
 class JNumber extends Spec {
   def is =
@@ -89,6 +89,6 @@ class JNumber extends Spec {
   }
 
   def toStandard = prop { b: BigDecimal =>
-    JNumber(b).toStandard must beEqualTo(scalajson.ast.JNumber(b))
+    JNumber(b).toStandard must beEqualTo(sjsonnew.shaded.scalajson.ast.JNumber(b))
   }
 }

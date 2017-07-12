@@ -1,8 +1,8 @@
-package scalajson.ast
+package sjsonnew.shaded.scalajson.ast
 package unsafe
 
-import scalajson.ast
-import scalajson.ast._
+import sjsonnew.shaded.scalajson.ast
+import sjsonnew.shaded.scalajson.ast._
 import scala.scalajs.js
 import scala.scalajs.js.annotation.JSExport
 

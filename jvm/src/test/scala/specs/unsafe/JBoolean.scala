@@ -1,7 +1,7 @@
 package specs.unsafe
 
 import specs.Spec
-import scalajson.ast.unsafe._
+import sjsonnew.shaded.scalajson.ast.unsafe._
 
 class JBoolean extends Spec {
   def is =
@@ -115,6 +115,6 @@ class JBoolean extends Spec {
   }
 
   def toStandard = prop { b: Boolean =>
-    JBoolean(b).toStandard must beEqualTo(scalajson.ast.JBoolean(b))
+    JBoolean(b).toStandard must beEqualTo(sjsonnew.shaded.scalajson.ast.JBoolean(b))
   }
 }

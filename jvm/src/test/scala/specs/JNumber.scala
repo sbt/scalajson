@@ -1,6 +1,6 @@
 package specs
 
-import scalajson.ast._
+import sjsonnew.shaded.scalajson.ast._
 
 class JNumber extends Spec {
   def is =
@@ -204,24 +204,24 @@ class JNumber extends Spec {
   }
 
   def toUnsafe = prop { b: BigDecimal =>
-    scalajson.ast.JNumber(b).toUnsafe must beEqualTo(
-      scalajson.ast.unsafe.JNumber(b))
+    sjsonnew.shaded.scalajson.ast.JNumber(b).toUnsafe must beEqualTo(
+      sjsonnew.shaded.scalajson.ast.unsafe.JNumber(b))
   }
 
   def testEquals = prop { b: BigDecimal =>
-    scalajson.ast.JNumber(b) must beEqualTo(scalajson.ast.JNumber(b))
+    sjsonnew.shaded.scalajson.ast.JNumber(b) must beEqualTo(sjsonnew.shaded.scalajson.ast.JNumber(b))
   }
 
   def testCopy =
     prop { (b1: BigDecimal, b2: BigDecimal) =>
       val asString = b2.toString()
-      scalajson.ast.JNumber(b1).copy(value = asString) must beEqualTo(
-        scalajson.ast.JNumber(b2))
+      sjsonnew.shaded.scalajson.ast.JNumber(b1).copy(value = asString) must beEqualTo(
+        sjsonnew.shaded.scalajson.ast.JNumber(b2))
     }
 
   def testCopyFail =
     prop { b: BigDecimal =>
-      scalajson.ast.JNumber(b).copy(value = "not a number") must throwA(
+      sjsonnew.shaded.scalajson.ast.JNumber(b).copy(value = "not a number") must throwA(
         new NumberFormatException("not a number"))
     }
 }

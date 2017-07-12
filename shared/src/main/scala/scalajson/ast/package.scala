@@ -1,4 +1,4 @@
-package scalajson
+package sjsonnew.shaded.scalajson
 
 import scala.util.matching.Regex
 
