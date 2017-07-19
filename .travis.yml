@@ -15,7 +15,7 @@ matrix:
 script:
   - sbt clean coverage test coverageReport
   - sbt ++$TRAVIS_SCALA_VERSION "test"
-#  - if [ "$RUN_MIMA" == "true" ]; then sbt ++$TRAVIS_SCALA_VERSION "+scalaJsonJVM/mimaReportBinaryIssues" ; fi
+  - if [ "$RUN_MIMA" == "true" ]; then sbt ++$TRAVIS_SCALA_VERSION "+scalaJsonJVM/mimaReportBinaryIssues" ; fi
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
