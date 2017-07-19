@@ -134,7 +134,7 @@ lazy val scalaJson = crossProject(JSPlatform, JVMPlatform)
     ),
     scalacOptions in Test ++= Seq("-Yrangepos"),
     mimaPreviousArtifacts := Set(
-      "org.scala-lang.platform" %% "scalajson" % "1.0.0-M3")
+      "com.eed3si9n" %% "shaded-scalajson" % "1.0.0-M4")
   )
   .jsSettings(
     // Add JS-specific settings here
