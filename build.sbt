@@ -11,10 +11,13 @@ val scala212Version = "2.12.2"
 val scalaCheckVersion = "1.13.4"
 val specs2Version = "3.9.1"
 
-scalaVersion in ThisBuild := currentScalaVersion
-crossScalaVersions in ThisBuild := Seq(currentScalaVersion,
-                                       scala212Version,
-                                       scala210Version)
+// WORKAROUND https://github.com/sbt/sbt/issues/3353
+val scalaVersionSettings = Def settings (
+  scalaVersion := currentScalaVersion,
+  crossScalaVersions := Seq(currentScalaVersion, scala212Version, scala210Version)
+)
+inThisBuild(scalaVersionSettings)
+scalaVersionSettings
 
 autoAPIMappings := true
 
@@ -48,10 +51,11 @@ lazy val root = project
     publishSigned := {}
   )
 
-lazy val commonSettings = Seq(
+lazy val commonSettings = Def settings (
   name := "shaded-scalajson",
   version := "1.0.0-M4",
   organization := "com.eed3si9n",
+  scalaVersionSettings,
   scalacOptions ++= Seq(
     "-encoding",
     "UTF-8",

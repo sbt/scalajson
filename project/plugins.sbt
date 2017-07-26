@@ -6,7 +6,7 @@ addSbtPlugin("org.scala-native" % "sbt-scalajs-crossproject" % "0.2.0")
 
 addSbtPlugin("com.geirsson" % "sbt-scalafmt" % "0.6.8")
 
-addSbtPlugin("com.typesafe" % "sbt-mima-plugin" % "0.1.13")
+addSbtPlugin("com.typesafe" % "sbt-mima-plugin" % "0.1.15")
 
 addSbtPlugin("org.scoverage" % "sbt-scoverage" % "1.5.0")
 
