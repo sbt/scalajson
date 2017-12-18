@@ -5,16 +5,20 @@ import PgpKeys.publishSigned
 // shadow sbt-scalajs' crossProject and CrossType until Scala.js 1.0.0 is released
 import sbtcrossproject.crossProject
 
-val currentScalaVersion = "2.11.11"
-val scala210Version = "2.10.6"
-val scala212Version = "2.12.2"
-val scalaCheckVersion = "1.13.4"
-val specs2Version = "3.9.1"
+val currentScalaVersion = "2.11.12"
+val scala210Version = "2.10.7"
+val scala212Version = "2.12.4"
+val scala213Version = "2.13.0-M2"
+val scalaCheckVersion = "1.13.5"
+val specs2Version = Def setting (CrossVersion partialVersion scalaVersion.value match {
+  case Some((2, 10)) => "3.9.5"
+  case _             => "4.0.2"
+})
 
 // WORKAROUND https://github.com/sbt/sbt/issues/3353
 val scalaVersionSettings = Def settings (
   scalaVersion := currentScalaVersion,
-  crossScalaVersions := Seq(currentScalaVersion, scala212Version, scala210Version)
+  crossScalaVersions := Seq(currentScalaVersion, scala212Version, scala213Version, scala210Version)
 )
 inThisBuild(scalaVersionSettings)
 scalaVersionSettings
@@ -132,19 +136,21 @@ lazy val scalaJson = crossProject(JSPlatform, JVMPlatform)
   .jvmSettings(
     // Add JVM-specific settings here
     libraryDependencies ++= Seq(
-      "org.specs2" %% "specs2-core" % specs2Version % Test,
-      "org.specs2" %% "specs2-scalacheck" % specs2Version % Test,
+      "org.specs2" %% "specs2-core" % specs2Version.value % Test,
+      "org.specs2" %% "specs2-scalacheck" % specs2Version.value % Test,
       "org.scalacheck" %% "scalacheck" % scalaCheckVersion % Test
     ),
     scalacOptions in Test ++= Seq("-Yrangepos"),
-    mimaPreviousArtifacts := Set(
-      "com.eed3si9n" %% "shaded-scalajson" % "1.0.0-M4")
+    mimaPreviousArtifacts := (CrossVersion partialVersion scalaVersion.value match {
+      case Some((2, n)) if n >= 13 => Set.empty
+      case _                       => Set("com.eed3si9n" %% "shaded-scalajson" % "1.0.0-M4")
+    })
   )
   .jsSettings(
     // Add JS-specific settings here
     libraryDependencies ++= Seq(
       "org.scalacheck" %%% "scalacheck" % scalaCheckVersion % Test,
-      "com.lihaoyi" %%% "utest" % "0.4.4" % Test
+      "com.lihaoyi" %%% "utest" % "0.5.4" % Test
     ),
     testFrameworks += new TestFramework("utest.runner.Framework")
   )
