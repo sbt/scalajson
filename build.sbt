@@ -5,14 +5,22 @@ import PgpKeys.publishSigned
 // shadow sbt-scalajs' crossProject and CrossType until Scala.js 1.0.0 is released
 import sbtcrossproject.crossProject
 
-val currentScalaVersion = "2.11.12"
+val currentScalaVersion = "2.13.0"
 val scala210Version = "2.10.7"
-val scala212Version = "2.12.4"
-val scala213Version = "2.13.0-M2"
-val scalaCheckVersion = "1.13.5"
-val specs2Version = Def setting (CrossVersion partialVersion scalaVersion.value match {
+val scala212Version = "2.12.8"
+val scala213Version = "2.13.0"
+val scalaCheckVersion = Def.setting(CrossVersion partialVersion scalaVersion.value match {
+  case Some((2, 10)) => "1.13.5"
+  case _             => "1.14.0"
+})
+val specs2Version = Def.setting(CrossVersion partialVersion scalaVersion.value match {
   case Some((2, 10)) => "3.9.5"
-  case _             => "4.0.2"
+  case _             => "4.6.0"
+})
+val utestVersion = Def.setting(CrossVersion partialVersion scalaVersion.value match {
+  case Some((2, 10)) => "0.6.8"
+  case Some((2, 11)) => "0.6.8"
+  case _             => "0.7.1"
 })
 
 // WORKAROUND https://github.com/sbt/sbt/issues/3353
@@ -40,12 +48,6 @@ val flagsFor11 = Seq(
   "-Xsource:2.12" // required to build case class construction
 )
 
-val flagsFor12 = Seq(
-  "-Xlint:_",
-  "-Ywarn-infer-any",
-  "-opt:l:project"
-)
-
 lazy val root = project
   .in(file("."))
   .aggregate(scalaJsonJS, scalaJsonJVM)
@@ -68,9 +70,7 @@ lazy val commonSettings = Def settings (
     "-unchecked", // additional warnings where generated code depends on assumptions
     "-Xlint", // recommended additional warnings
     "-Xcheckinit", // runtime error when a val is not initialized due to trait hierarchies (instead of NPE somewhere else)
-    "-Ywarn-adapted-args", // Warn if an argument list is modified to match the receiver
     "-Ywarn-value-discard", // Warn when non-Unit expression results are unused
-    "-Ywarn-inaccessible",
     "-Ywarn-dead-code"
   ),
   publishMavenStyle := true,
@@ -124,12 +124,9 @@ lazy val scalaJson = crossProject(JSPlatform, JVMPlatform)
     },
     scalacOptions ++= {
       CrossVersion.partialVersion(scalaVersion.value) match {
-        case Some((2, n)) if n >= 12 =>
-          flagsFor12
-        case Some((2, n)) if n == 11 =>
-          flagsFor11
-        case Some((2, n)) if n == 10 =>
-          flagsFor10
+        case Some((2, n)) if n >= 12 => Nil
+        case Some((2, n)) if n == 11 => flagsFor11
+        case Some((2, n)) if n == 10 => flagsFor10
       }
     }
   )
@@ -138,7 +135,7 @@ lazy val scalaJson = crossProject(JSPlatform, JVMPlatform)
     libraryDependencies ++= Seq(
       "org.specs2" %% "specs2-core" % specs2Version.value % Test,
       "org.specs2" %% "specs2-scalacheck" % specs2Version.value % Test,
-      "org.scalacheck" %% "scalacheck" % scalaCheckVersion % Test
+      "org.scalacheck" %% "scalacheck" % scalaCheckVersion.value % Test
     ),
     scalacOptions in Test ++= Seq("-Yrangepos"),
     mimaPreviousArtifacts := (CrossVersion partialVersion scalaVersion.value match {
@@ -149,8 +146,8 @@ lazy val scalaJson = crossProject(JSPlatform, JVMPlatform)
   .jsSettings(
     // Add JS-specific settings here
     libraryDependencies ++= Seq(
-      "org.scalacheck" %%% "scalacheck" % scalaCheckVersion % Test,
-      "com.lihaoyi" %%% "utest" % "0.5.4" % Test
+      "org.scalacheck" %%% "scalacheck" % scalaCheckVersion.value % Test,
+      "com.lihaoyi" %%% "utest" % utestVersion.value % Test
     ),
     testFrameworks += new TestFramework("utest.runner.Framework")
   )
