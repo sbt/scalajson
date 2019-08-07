@@ -29,20 +29,24 @@ object Generators {
     */
   def defaultMaxDepth: Depth = Depth(2)
 
-  implicit def arbJsValue(implicit maxDepth: Depth = defaultMaxDepth,
-                          maxWidth: Width = defaultMaxWidth)
-    : Arbitrary[scalajson.ast.unsafe.JValue] = Arbitrary(genJsValue)
+  implicit def arbJsValue(
+      implicit maxDepth: Depth = defaultMaxDepth,
+      maxWidth: Width = defaultMaxWidth
+  ): Arbitrary[scalajson.ast.unsafe.JValue] = Arbitrary(genJsValue)
 
-  implicit def arbJsObject(implicit maxDepth: Depth = defaultMaxDepth,
-                           maxWidth: Width = defaultMaxWidth)
-    : Arbitrary[scalajson.ast.unsafe.JObject] = Arbitrary(genJsObject)
+  implicit def arbJsObject(
+      implicit maxDepth: Depth = defaultMaxDepth,
+      maxWidth: Width = defaultMaxWidth
+  ): Arbitrary[scalajson.ast.unsafe.JObject] = Arbitrary(genJsObject)
 
-  implicit def arbJsArray(implicit maxDepth: Depth = defaultMaxDepth,
-                          maxWidth: Width = defaultMaxWidth)
-    : Arbitrary[scalajson.ast.unsafe.JArray] = Arbitrary(genJsArray)
+  implicit def arbJsArray(
+      implicit maxDepth: Depth = defaultMaxDepth,
+      maxWidth: Width = defaultMaxWidth
+  ): Arbitrary[scalajson.ast.unsafe.JArray] = Arbitrary(genJsArray)
 
-  implicit def arbJsString(implicit arbString: Arbitrary[String])
-    : Arbitrary[scalajson.ast.unsafe.JString] = Arbitrary {
+  implicit def arbJsString(
+      implicit arbString: Arbitrary[String]
+  ): Arbitrary[scalajson.ast.unsafe.JString] = Arbitrary {
     arbString.arbitrary map scalajson.ast.unsafe.JString
   }
 
@@ -108,7 +112,8 @@ object Generators {
     */
   def genJsValue(
       implicit maxDepth: Depth = defaultMaxDepth,
-      maxWidth: Width = defaultMaxWidth): Gen[scalajson.ast.unsafe.JValue] = {
+      maxWidth: Width = defaultMaxWidth
+  ): Gen[scalajson.ast.unsafe.JValue] = {
     if (maxDepth === 0) genJsPrimitive
     else
       Gen.oneOf(
@@ -129,10 +134,12 @@ object Generators {
     */
   def genJsArray(
       implicit maxDepth: Depth = defaultMaxDepth,
-      maxWidth: Width = defaultMaxWidth): Gen[scalajson.ast.unsafe.JArray] =
+      maxWidth: Width = defaultMaxWidth
+  ): Gen[scalajson.ast.unsafe.JArray] =
     Gen.containerOfN[Vector, scalajson.ast.unsafe.JValue](
       maxWidth,
-      genJsValue(maxDepth - 1, maxWidth)) map { x =>
+      genJsValue(maxDepth - 1, maxWidth)
+    ) map { x =>
       scalajson.ast.unsafe.JArray.apply(x.toArray)
     }
 
@@ -142,9 +149,10 @@ object Generators {
     */
   def genFieldName: Gen[String] = Gen.identifier
 
-  def genFields(implicit maxDepth: Depth = defaultMaxDepth,
-                maxWidth: Width = defaultMaxWidth)
-    : Gen[(String, scalajson.ast.unsafe.JValue)] = {
+  def genFields(
+      implicit maxDepth: Depth = defaultMaxDepth,
+      maxWidth: Width = defaultMaxWidth
+  ): Gen[(String, scalajson.ast.unsafe.JValue)] = {
     // The Scala compiler has a bug with AnyVal, where it favors implicits in the outer scope
     Gen.zip(genFieldName, genJsValue(maxDepth, maxWidth))
   }
@@ -157,7 +165,8 @@ object Generators {
     */
   def genJsObject(
       implicit maxDepth: Depth = defaultMaxDepth,
-      maxWidth: Width = defaultMaxWidth): Gen[scalajson.ast.unsafe.JObject] = {
+      maxWidth: Width = defaultMaxWidth
+  ): Gen[scalajson.ast.unsafe.JObject] = {
     for {
       fields <- Gen.listOfN(maxWidth, genFields(maxDepth - 1, maxWidth)).map {
         _.map { case (k, v) => scalajson.ast.unsafe.JField(k, v) }
@@ -170,14 +179,13 @@ object Generators {
   implicit val shrinkJsArray: Shrink[scalajson.ast.unsafe.JArray] = Shrink {
     arr =>
       val stream
-        : Stream[scalajson.ast.unsafe.JArray] = shrink(arr.value) map scalajson.ast.unsafe.JArray.apply
+          : Stream[scalajson.ast.unsafe.JArray] = shrink(arr.value) map scalajson.ast.unsafe.JArray.apply
       stream
   }
 
   implicit val shrinkJsObject: Shrink[scalajson.ast.unsafe.JObject] = Shrink {
     obj =>
-      val stream
-        : Stream[scalajson.ast.unsafe.JObject] = shrink(obj.value) map {
+      val stream: Stream[scalajson.ast.unsafe.JObject] = shrink(obj.value) map {
         fields =>
           scalajson.ast.unsafe.JObject(fields)
       }
@@ -186,7 +194,7 @@ object Generators {
 
   implicit val shrinkJsValue: Shrink[scalajson.ast.unsafe.JValue] = Shrink {
     case array: scalajson.ast.unsafe.JArray => shrink(array)
-    case obj: scalajson.ast.unsafe.JObject => shrink(obj)
+    case obj: scalajson.ast.unsafe.JObject  => shrink(obj)
     case scalajson.ast.unsafe.JString(str) =>
       shrink(str) map scalajson.ast.unsafe.JString
     case scalajson.ast.unsafe.JNumber(num) =>
