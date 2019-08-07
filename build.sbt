@@ -2,15 +2,15 @@ name := "scalajson"
 
 import PgpKeys.publishSigned
 
-// shadow sbt-scalajs' crossProject and CrossType until Scala.js 1.0.0 is released
-import sbtcrossproject.crossProject
+// shadow sbt-scalajs' crossProject and CrossType from Scala.js 0.6.x
+import sbtcrossproject.CrossPlugin.autoImport.{ crossProject, CrossType }
 
 val currentScalaVersion = "2.11.12"
 val scala210Version = "2.10.7"
-val scala212Version = "2.12.4"
-val scala213Version = "2.13.0-M3"
-val scalaCheckVersion = "1.13.5"
-val scalaTestVersion = "3.0.5-M1"  // only version avail for Scala 2.13.0-M3; otherwise same as 3.0.4
+val scala212Version = "2.12.8"
+val scala213Version = "2.13.0"
+val scalaCheckVersion = "1.14.0"
+val scalaTestVersion = "3.0.8"
 
 scalaVersion in ThisBuild := currentScalaVersion
 crossScalaVersions in ThisBuild := Seq(currentScalaVersion,
@@ -38,7 +38,9 @@ val flagsFor11 = Seq(
 val flagsFor12 = Seq(
   "-Xlint:_",
   "-Ywarn-infer-any",
-  "-opt-inline-from:<sources>"
+  "-opt-inline-from:<sources>",
+  "-Ywarn-adapted-args", // Warn if an argument list is modified to match the receiver
+  "-Ywarn-inaccessible"
 )
 
 lazy val root = project
@@ -62,9 +64,7 @@ lazy val commonSettings = Seq(
     "-unchecked", // additional warnings where generated code depends on assumptions
     "-Xlint", // recommended additional warnings
     "-Xcheckinit", // runtime error when a val is not initialized due to trait hierarchies (instead of NPE somewhere else)
-    "-Ywarn-adapted-args", // Warn if an argument list is modified to match the receiver
     "-Ywarn-value-discard", // Warn when non-Unit expression results are unused
-    "-Ywarn-inaccessible",
     "-Ywarn-dead-code"
   ),
   publishMavenStyle := true,
@@ -118,7 +118,9 @@ lazy val scalaJson = crossProject(JSPlatform, JVMPlatform, NativePlatform)
     },
     scalacOptions ++= {
       CrossVersion.partialVersion(scalaVersion.value) match {
-        case Some((2, n)) if n >= 12 =>
+        case Some((2, n)) if n >= 13 =>
+          Nil
+        case Some((2, n)) if n == 12 =>
           flagsFor12
         case Some((2, n)) if n == 11 =>
           flagsFor11

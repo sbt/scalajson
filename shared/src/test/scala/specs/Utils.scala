@@ -9,16 +9,16 @@ object Utils {
     * @param right
     * @return
     */
-  def unsafeJValueEquals(left: scalajson.ast.unsafe.JValue,
-                         right: scalajson.ast.unsafe.JValue): Boolean = {
+  def unsafeJValueEquals(
+      left: scalajson.ast.unsafe.JValue,
+      right: scalajson.ast.unsafe.JValue
+  ): Boolean = {
     (left, right) match {
-      case (l: scalajson.ast.unsafe.JString,
-            r: scalajson.ast.unsafe.JString) =>
+      case (l: scalajson.ast.unsafe.JString, r: scalajson.ast.unsafe.JString) =>
         l == r
       case (scalajson.ast.unsafe.JNull, scalajson.ast.unsafe.JNull) =>
         true
-      case (l: scalajson.ast.unsafe.JNumber,
-            r: scalajson.ast.unsafe.JNumber) =>
+      case (l: scalajson.ast.unsafe.JNumber, r: scalajson.ast.unsafe.JNumber) =>
         l == r
       case (l: scalajson.ast.unsafe.JArray, r: scalajson.ast.unsafe.JArray) =>
         val rValue = r.value
@@ -26,11 +26,12 @@ object Utils {
           case (value, index) =>
             unsafeJValueEquals(value, rValue(index))
         }
-      case (l: scalajson.ast.unsafe.JBoolean,
-            r: scalajson.ast.unsafe.JBoolean) =>
+      case (
+          l: scalajson.ast.unsafe.JBoolean,
+          r: scalajson.ast.unsafe.JBoolean
+          ) =>
         l == r
-      case (l: scalajson.ast.unsafe.JObject,
-            r: scalajson.ast.unsafe.JObject) =>
+      case (l: scalajson.ast.unsafe.JObject, r: scalajson.ast.unsafe.JObject) =>
         val rAsMap = r.value.map { field =>
           (field.field, field.value)
         }.toMap
@@ -41,7 +42,7 @@ object Utils {
           case (k, value) =>
             lAsMap.get(k) match {
               case Some(lValue) => unsafeJValueEquals(lValue, value)
-              case _ => false
+              case _            => false
             }
         }
 

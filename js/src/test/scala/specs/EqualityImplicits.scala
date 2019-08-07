@@ -54,8 +54,10 @@ object EqualityImplicits {
     }
   }
 
-  private def baseEqualsUnsafe(a: scalajson.ast.unsafe.JValue,
-                               b: Any): Boolean = {
+  private def baseEqualsUnsafe(
+      a: scalajson.ast.unsafe.JValue,
+      b: Any
+  ): Boolean = {
     val bAny = b.asInstanceOf[js.Any]
 
     a match {

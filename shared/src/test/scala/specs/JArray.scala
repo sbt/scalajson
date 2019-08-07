@@ -15,14 +15,15 @@ class JArray extends Spec {
         Utils.unsafeJValueEquals(
           jArray.toUnsafe,
           scalajson.ast.unsafe.JArray(values)
-        ) should be (true)
+        ) should be(true)
       }
     }
 
     "equals" in {
       forAll { jArray: scalajson.ast.JArray =>
         scalajson.ast.JArray(jArray.value) should be(
-          scalajson.ast.JArray(jArray.value))
+          scalajson.ast.JArray(jArray.value)
+        )
       }
     }
   }

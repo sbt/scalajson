@@ -1,7 +1,6 @@
 package specs
 
 import scalajson.ast._
-import org.scalatest._
 
 class JNumber extends Spec {
 
@@ -100,12 +99,14 @@ class JNumber extends Spec {
 
     "hashCode equals decimal" in {
       JNumber.fromString("34").get.## should be(
-        JNumber.fromString("34.0").get.##)
+        JNumber.fromString("34.0").get.##
+      )
     }
 
     "hashCode equals decimal #2" in {
       JNumber.fromString("34").get.## should be(
-        JNumber.fromString("34.00").get.##)
+        JNumber.fromString("34.00").get.##
+      )
     }
 
     "hashCode not equals decimal" in {
@@ -127,22 +128,26 @@ class JNumber extends Spec {
         JNumber
           .fromString("34e034")
           .get
-          .##)
+          .##
+      )
     }
 
     "hashCode equals e #2" in {
       JNumber.fromString("34e34").get.## should be(
-        JNumber.fromString("34e0034").get.##)
+        JNumber.fromString("34e0034").get.##
+      )
     }
 
     "hashCode equals e negative" in {
       JNumber.fromString("34e-0").get.## should be(
-        JNumber.fromString("34").get.##)
+        JNumber.fromString("34").get.##
+      )
     }
 
     "hashCode equals e negative #2" in {
       JNumber.fromString("34e-00").get.## should be(
-        JNumber.fromString("34").get.##)
+        JNumber.fromString("34").get.##
+      )
     }
 
     "hashCode not equals e negative" in {
@@ -161,12 +166,14 @@ class JNumber extends Spec {
 
     "hashCode equals e positive" in {
       JNumber.fromString("34e+0").get.## should be(
-        JNumber.fromString("34").get.##)
+        JNumber.fromString("34").get.##
+      )
     }
 
     "hashCode equals e positive #2" in {
       JNumber.fromString("34e+00").get.## should be(
-        JNumber.fromString("34").get.##)
+        JNumber.fromString("34").get.##
+      )
     }
 
     "hashCode not equals e positive" in {
@@ -186,7 +193,8 @@ class JNumber extends Spec {
     "convert toUnsafe" in {
       forAll { b: BigDecimal =>
         scalajson.ast.JNumber(b).toUnsafe should be(
-          scalajson.ast.unsafe.JNumber(b))
+          scalajson.ast.unsafe.JNumber(b)
+        )
       }
     }
 
@@ -201,7 +209,8 @@ class JNumber extends Spec {
       forAll { (b1: BigDecimal, b2: BigDecimal) =>
         val asString = b2.toString()
         scalajson.ast.JNumber(b1).copy(value = asString) should be(
-          scalajson.ast.JNumber(b2))
+          scalajson.ast.JNumber(b2)
+        )
 
       }
     }
