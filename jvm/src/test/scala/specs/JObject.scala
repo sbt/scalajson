@@ -10,7 +10,7 @@ class JObject extends Spec {
    equals $testEquals
   """
 
-  def toUnsafe = prop { jObject: sjsonnew.shaded.scalajson.ast.JObject =>
+  def toUnsafe = prop { (jObject: sjsonnew.shaded.scalajson.ast.JObject) =>
     val values = jObject.value.map {
       case (k, v) =>
         sjsonnew.shaded.scalajson.ast.unsafe.JField(k, v.toUnsafe)
@@ -19,7 +19,7 @@ class JObject extends Spec {
                              sjsonnew.shaded.scalajson.ast.unsafe.JObject(values.toArray))
   }
 
-  def testEquals = prop { jObject: sjsonnew.shaded.scalajson.ast.JObject =>
+  def testEquals = prop { (jObject: sjsonnew.shaded.scalajson.ast.JObject) =>
     sjsonnew.shaded.scalajson.ast.JObject(jObject.value) must beEqualTo(
       sjsonnew.shaded.scalajson.ast.JObject(jObject.value))
   }

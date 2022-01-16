@@ -2,7 +2,7 @@ package specs
 
 import sjsonnew.shaded.scalajson.ast.JString
 
-class JString extends Spec {
+class JStringTest extends Spec {
   def is =
     s2"""
   The JString value should
@@ -11,15 +11,15 @@ class JString extends Spec {
     equals $testEquals
   """
 
-  def readStringJString = prop { s: String =>
+  def readStringJString = prop { (s: String) =>
     JString(s).value must beEqualTo(s)
   }
 
-  def toUnsafe = prop { b: Boolean =>
+  def toUnsafe = prop { (b: Boolean) =>
     sjsonnew.shaded.scalajson.ast.JBoolean(b).toUnsafe == sjsonnew.shaded.scalajson.ast.unsafe.JBoolean(b)
   }
 
-  def testEquals = prop { s: String =>
+  def testEquals = prop { (s: String) =>
     sjsonnew.shaded.scalajson.ast.JString(s) == sjsonnew.shaded.scalajson.ast.JString(s)
   }
 }

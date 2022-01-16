@@ -13,7 +13,7 @@ class JArray extends Spec {
    equals $testEquals
   """
 
-  def toUnsafe = prop { jArray: sjsonnew.shaded.scalajson.ast.JArray =>
+  def toUnsafe = prop { (jArray: sjsonnew.shaded.scalajson.ast.JArray) =>
     val values = jArray.value.map(_.toUnsafe).toArray
 
     Utils.unsafeJValueEquals(
@@ -22,7 +22,7 @@ class JArray extends Spec {
     ) must beTrue
   }
 
-  def testEquals = prop { jArray: sjsonnew.shaded.scalajson.ast.JArray =>
+  def testEquals = prop { (jArray: sjsonnew.shaded.scalajson.ast.JArray) =>
     sjsonnew.shaded.scalajson.ast.JArray(jArray.value) must beEqualTo(
       sjsonnew.shaded.scalajson.ast.JArray(jArray.value))
   }

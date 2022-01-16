@@ -18,7 +18,7 @@ object JArray extends TestSuite with UTestScalaCheck {
   }
 
   def toUnsafe =
-    forAll { jArray: JArray =>
+    forAll { (jArray: JArray) =>
       val values = jArray.value.map(_.toUnsafe).toJSArray
 
       Utils.unsafeJValueEquals(
@@ -28,7 +28,7 @@ object JArray extends TestSuite with UTestScalaCheck {
     }.checkUTest()
 
   def testEquals =
-    forAll { jArray: JArray =>
+    forAll { (jArray: JArray) =>
       sjsonnew.shaded.scalajson.ast.JArray(jArray.value) == sjsonnew.shaded.scalajson.ast.JArray(jArray.value)
     }.checkUTest()
 }

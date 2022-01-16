@@ -9,7 +9,7 @@ class JValue extends Spec {
    equals $testEquals
   """
 
-  def testEquals = prop { jValue: sjsonnew.shaded.scalajson.ast.JValue =>
+  def testEquals = prop { (jValue: sjsonnew.shaded.scalajson.ast.JValue) =>
     // Is there a better way to do this?
     val cloned = jValue match {
       case sjsonnew.shaded.scalajson.ast.JNull => sjsonnew.shaded.scalajson.ast.JNull

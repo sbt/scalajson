@@ -26,27 +26,27 @@ object JNumber extends TestSuite with UTestScalaCheck {
   }
 
   def readLongJNumber =
-    forAll { l: Long =>
+    forAll { (l: Long) =>
       sjsonnew.shaded.scalajson.ast.unsafe.JNumber(l).value == l.toString
     }.checkUTest()
 
   def readBigDecimalJNumber =
-    forAll { b: BigDecimal =>
+    forAll { (b: BigDecimal) =>
       sjsonnew.shaded.scalajson.ast.unsafe.JNumber(b).value == b.toString()
     }.checkUTest()
 
   def readBigIntJNumber =
-    forAll { b: BigInt =>
+    forAll { (b: BigInt) =>
       sjsonnew.shaded.scalajson.ast.unsafe.JNumber(b).value == b.toString()
     }.checkUTest()
 
   def readIntJNumber =
-    forAll { i: Int =>
+    forAll { (i: Int) =>
       sjsonnew.shaded.scalajson.ast.unsafe.JNumber(i).value == i.toString
     }.checkUTest()
 
   def readDoubleJNumber =
-    forAll { d: Double =>
+    forAll { (d: Double) =>
       sjsonnew.shaded.scalajson.ast.unsafe.JNumber(d).value == d.toString
     }.checkUTest()
 
@@ -72,22 +72,22 @@ object JNumber extends TestSuite with UTestScalaCheck {
   }
 
   def readFloatJNumber =
-    forAll { f: Float =>
+    forAll { (f: Float) =>
       sjsonnew.shaded.scalajson.ast.unsafe.JNumber(f).value == f.toString
     }.checkUTest()
 
   def readShortJNumber =
-    forAll { s: Short =>
+    forAll { (s: Short) =>
       sjsonnew.shaded.scalajson.ast.unsafe.JNumber(s).value == s.toString
     }.checkUTest()
 
   def readStringJNumber =
-    forAll { s: String =>
+    forAll { (s: String) =>
       sjsonnew.shaded.scalajson.ast.unsafe.JNumber(s).value == s.toString
     }.checkUTest()
 
   def readStringJNumberDetect =
-    forAll { s: String =>
+    forAll { (s: String) =>
       {
         scala.util
           .Try {
@@ -104,12 +104,12 @@ object JNumber extends TestSuite with UTestScalaCheck {
     }.checkUTest()
 
   def toJsAny =
-    forAll { d: Double =>
-      sjsonnew.shaded.scalajson.ast.unsafe.JNumber(d).toJsAny == d
+    forAll { (d: Double) =>
+      sjsonnew.shaded.scalajson.ast.unsafe.JNumber(d).toJsAny == (d: Any)
     }.checkUTest()
 
   def toStandard =
-    forAll { b: BigDecimal =>
+    forAll { (b: BigDecimal) =>
       sjsonnew.shaded.scalajson.ast.unsafe.JNumber(b).toStandard == sjsonnew.shaded.scalajson.ast.JNumber(b)
     }.checkUTest()
 }

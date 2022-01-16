@@ -25,10 +25,8 @@ jobs:
     env:
       JAVA_OPTS: -Xms800M -Xmx2G -Xss6M -XX:ReservedCodeCacheSize=128M -server -Dsbt.io.virtual=false -Dfile.encoding=UTF-8
       JVM_OPTS: -Xms800M -Xmx2G -Xss6M -XX:ReservedCodeCacheSize=128M -server -Dsbt.io.virtual=false -Dfile.encoding=UTF-8
-      SCALA_210: 2.10.7
-      SCALA_211: 2.11.12
-      SCALA_212: 2.12.10
-      SCALA_213: 2.13.1
+      SCALA_212: 2.12.15
+      SCALA_213: 2.13.8
       SCALA_3: 3.1.0
       JDK11: adopt@1.11.0-9
     steps:
@@ -46,27 +44,17 @@ jobs:
       shell: bash
       run: |
         # sbt -v clean scalafmtCheckAll coverage test coverageReport
-        sbt -v test
-        sbt -v ++$SCALA_212! "test"
-        sbt -v ++$SCALA_212! "benchmarkJVM/Test/compile"
-        sbt -v ++$SCALA_212! "benchmarkJS/Test/compile"
+        sbt -v --client test
+        sbt -v --client ++$SCALA_212! "test"
+        sbt -v --client ++$SCALA_212! "benchmarkJVM/Test/compile"
+        sbt -v --client ++$SCALA_212! "benchmarkJS/Test/compile"
     - name: Build and test (2)
       if: ${{ matrix.jobtype == 2 }}
       shell: bash
       run: |
-        sbt -v ++$SCALA_213! "test"
-    - name: Build and test (3)
-      if: ${{ matrix.jobtype == 3 }}
-      shell: bash
-      run: |
-        # sbt -v scalafmtCheckAll coverage test coverageReport
-        sbt test
-        sbt -v ++$SCALA_211! "test"
-        sbt -v ++$SCALA_211! "benchmarkJVM/Test/compile"
-        sbt -v ++$SCALA_211! "benchmarkJS/Test/compile"
-        sbt -v ++$SCALA_210! "test"
-        # sbt -v ++$SCALA_210! "benchmarkJVM/Test/compile"
-        # sbt -v ++$SCALA_210! "benchmarkJS/Test/compile"
+        sbt -v --client ++$SCALA_213! "test"
+        sbt -v --client ++$SCALA_3! compile
+        sbt -v --client ++$SCALA_3! "all scalaJsonJVM/test scalaJsonJS/test"
     - name: Cleanup
       shell: bash
       run: |

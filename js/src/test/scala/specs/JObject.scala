@@ -19,7 +19,7 @@ object JObject extends TestSuite with UTestScalaCheck {
   }
 
   def toUnsafe =
-    forAll { jObject: sjsonnew.shaded.scalajson.ast.JObject =>
+    forAll { (jObject: sjsonnew.shaded.scalajson.ast.JObject) =>
       val values = jObject.value.map {
         case (k, v) =>
           sjsonnew.shaded.scalajson.ast.unsafe.JField(k, v.toUnsafe)
@@ -29,7 +29,7 @@ object JObject extends TestSuite with UTestScalaCheck {
     }.checkUTest()
 
   def testEquals =
-    forAll { jObject: sjsonnew.shaded.scalajson.ast.JObject =>
+    forAll { (jObject: sjsonnew.shaded.scalajson.ast.JObject) =>
       sjsonnew.shaded.scalajson.ast.JObject(jObject.value) == sjsonnew.shaded.scalajson.ast.JObject(
         jObject.value)
     }.checkUTest()
