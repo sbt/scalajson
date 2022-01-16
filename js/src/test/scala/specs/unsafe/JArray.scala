@@ -19,7 +19,7 @@ object JArray extends TestSuite with UTestScalaCheck {
   }
 
   def toStandard =
-    forAll { jArray: sjsonnew.shaded.scalajson.ast.unsafe.JArray =>
+    forAll { (jArray: sjsonnew.shaded.scalajson.ast.unsafe.JArray) =>
       val values = jArray.value.map(_.toStandard).toVector
       jArray.toStandard == sjsonnew.shaded.scalajson.ast.JArray(values)
     }.checkUTest()

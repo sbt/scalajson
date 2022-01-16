@@ -14,7 +14,7 @@ object JValue extends TestSuite with UTestScalaCheck {
   }
 
   def testEquals =
-    forAll { jValue: sjsonnew.shaded.scalajson.ast.unsafe.JValue =>
+    forAll { (jValue: sjsonnew.shaded.scalajson.ast.unsafe.JValue) =>
       // Is there a better way to do this?
       val cloned = jValue match {
         case sjsonnew.shaded.scalajson.ast.unsafe.JNull => sjsonnew.shaded.scalajson.ast.unsafe.JNull

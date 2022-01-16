@@ -15,23 +15,23 @@ object JString extends TestSuite with UTestScalaCheck {
     }
 
     def readStringJString =
-      forAll { s: String =>
+      forAll { (s: String) =>
         sjsonnew.shaded.scalajson.ast.JString(s).value == s
       }.checkUTest()
 
     def toJsAny =
-      forAll { s: String =>
-        sjsonnew.shaded.scalajson.ast.JString(s).toJsAny == s
+      forAll { (s: String) =>
+        sjsonnew.shaded.scalajson.ast.JString(s).toJsAny == (s: Any)
       }.checkUTest()
 
     def toUnsafe =
-      forAll { b: Boolean =>
+      forAll { (b: Boolean) =>
         sjsonnew.shaded.scalajson.ast.JBoolean(b).toUnsafe == sjsonnew.shaded.scalajson.ast.unsafe
           .JBoolean(b)
       }.checkUTest()
 
     def testEquals =
-      forAll { s: String =>
+      forAll { (s: String) =>
         sjsonnew.shaded.scalajson.ast.JString(s) == sjsonnew.shaded.scalajson.ast.JString(s)
       }.checkUTest()
   }

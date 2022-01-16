@@ -3,7 +3,7 @@ package specs.unsafe
 import specs.Spec
 import sjsonnew.shaded.scalajson.ast.unsafe._
 
-class JNumber extends Spec {
+class JNumberTest extends Spec {
   def is =
     s2"""
   The unsafe.JNumber value should
@@ -22,23 +22,23 @@ class JNumber extends Spec {
     convert toStandard $toStandard
   """
 
-  def readLongJNumber = prop { l: Long =>
+  def readLongJNumber = prop { (l: Long) =>
     JNumber(l).value must beEqualTo(l.toString)
   }
 
-  def readBigDecimalJNumber = prop { b: BigDecimal =>
+  def readBigDecimalJNumber = prop { (b: BigDecimal) =>
     JNumber(b).value must beEqualTo(b.toString())
   }
 
-  def readBigIntJNumber = prop { b: BigInt =>
+  def readBigIntJNumber = prop { (b: BigInt) =>
     JNumber(b).value must beEqualTo(b.toString())
   }
 
-  def readIntJNumber = prop { i: Int =>
+  def readIntJNumber = prop { (i: Int) =>
     JNumber(i).value must beEqualTo(i.toString)
   }
 
-  def readDoubleJNumber = prop { d: Double =>
+  def readDoubleJNumber = prop { (d: Double) =>
     JNumber(d).value must beEqualTo(d.toString)
   }
 
@@ -63,19 +63,19 @@ class JNumber extends Spec {
     }
   }
 
-  def readFloatJNumber = prop { f: Float =>
+  def readFloatJNumber = prop { (f: Float) =>
     JNumber(f).value must beEqualTo(f.toString)
   }
 
-  def readShortJNumber = prop { s: Short =>
+  def readShortJNumber = prop { (s: Short) =>
     JNumber(s).value must beEqualTo(s.toString)
   }
 
-  def readStringJNumber = prop { s: String =>
+  def readStringJNumber = prop { (s: String) =>
     JNumber(s).value must beEqualTo(s.toString)
   }
 
-  def readStringJNumberDetect = prop { s: String =>
+  def readStringJNumberDetect = prop { (s: String) =>
     {
       scala.util
         .Try {
@@ -88,7 +88,7 @@ class JNumber extends Spec {
     }
   }
 
-  def toStandard = prop { b: BigDecimal =>
+  def toStandard = prop { (b: BigDecimal) =>
     JNumber(b).toStandard must beEqualTo(sjsonnew.shaded.scalajson.ast.JNumber(b))
   }
 }

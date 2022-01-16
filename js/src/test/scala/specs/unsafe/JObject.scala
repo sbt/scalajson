@@ -19,7 +19,7 @@ object JObject extends TestSuite with UTestScalaCheck {
   }
 
   def toStandard =
-    forAll { jObject: sjsonnew.shaded.scalajson.ast.unsafe.JObject =>
+    forAll { (jObject: sjsonnew.shaded.scalajson.ast.unsafe.JObject) =>
       val values = jObject.value.map { x =>
         (x.field, x.value.toStandard)
       }.toMap

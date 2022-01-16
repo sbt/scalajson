@@ -11,7 +11,7 @@ class JArray extends Spec {
     convert toStandard $toStandard
   """
 
-  def toStandard = prop { jArray: sjsonnew.shaded.scalajson.ast.unsafe.JArray =>
+  def toStandard = prop { (jArray: sjsonnew.shaded.scalajson.ast.unsafe.JArray) =>
     val values = jArray.value.map(_.toStandard).toVector
     jArray.toStandard == sjsonnew.shaded.scalajson.ast.JArray(values)
   }

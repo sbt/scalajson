@@ -11,7 +11,7 @@ class JObject extends Spec {
     convert toStandard $toStandard
   """
 
-  def toStandard = prop { jObject: sjsonnew.shaded.scalajson.ast.unsafe.JObject =>
+  def toStandard = prop { (jObject: sjsonnew.shaded.scalajson.ast.unsafe.JObject) =>
     val values = jObject.value.map { x =>
       (x.field, x.value.toStandard)
     }.toMap

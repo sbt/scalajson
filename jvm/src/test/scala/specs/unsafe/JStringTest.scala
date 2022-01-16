@@ -3,7 +3,7 @@ package specs.unsafe
 import specs.Spec
 import sjsonnew.shaded.scalajson.ast.unsafe._
 
-class JString extends Spec {
+class JStringTest extends Spec {
   def is =
     s2"""
   The unsafe.JString value should
@@ -11,11 +11,11 @@ class JString extends Spec {
     convert toStandard $toStandard
   """
 
-  def readStringJString = prop { s: String =>
+  def readStringJString = prop { (s: String) =>
     JString(s).value must beEqualTo(s)
   }
 
-  def toStandard = prop { s: String =>
+  def toStandard = prop { (s: String) =>
     JString(s).toStandard must beEqualTo(sjsonnew.shaded.scalajson.ast.JString(s))
   }
 }
