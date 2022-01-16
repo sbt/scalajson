@@ -156,6 +156,7 @@ lazy val scalaJson = crossProject(JSPlatform, JVMPlatform, NativePlatform)
     libraryDependencies ++= {
       (CrossVersion partialVersion scalaVersion.value) match {
         case Some((3, _)) => Nil
+        case Some((2, 11)) => Nil
         case _ =>
           Seq(
             "org.scalacheck" %%% "scalacheck" % scalaCheckVersion.value % Test,
@@ -163,7 +164,9 @@ lazy val scalaJson = crossProject(JSPlatform, JVMPlatform, NativePlatform)
           )
       }
     },
-    testFrameworks += new TestFramework("utest.runner.Framework")
+    testFrameworks += new TestFramework("utest.runner.Framework"),
+    // Scala 3
+    // Compile / doc / sources := Nil,
   )
 
 lazy val benchmark = crossProject(JSPlatform, JVMPlatform)
