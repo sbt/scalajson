@@ -157,7 +157,7 @@ lazy val benchmark = crossProject(JSPlatform, JVMPlatform)
   .jvmSettings(
     testFrameworks += new TestFramework("org.scalameter.ScalaMeterFramework"),
     libraryDependencies ++= Seq(
-      "com.storm-enroute" %% "scalameter" % "0.7" % Test
+      "com.storm-enroute" %% "scalameter" % "0.19" % Test
     )
   )
   .dependsOn(scalaJson)
