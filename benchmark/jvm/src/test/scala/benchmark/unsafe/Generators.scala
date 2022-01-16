@@ -1,7 +1,7 @@
 package benchmark.unsafe
 
 import org.scalameter._
-import scala.json.ast.unsafe
+import sjsonnew.shaded.scalajson.ast.unsafe
 
 object Generators {
 
@@ -26,7 +26,7 @@ object Generators {
     for {
       size <- Gen.range("seed")(300000, 1500000, 300000)
     } yield {
-      scala.json.ast.unsafe.JNumber(size)
+      unsafe.JNumber(size)
     }
 
   def jArray: Gen[unsafe.JArray] =
@@ -39,7 +39,7 @@ object Generators {
       (0 until size).foreach { index =>
         array(index) = randomJValue
       }
-      scala.json.ast.unsafe.JArray(array)
+      unsafe.JArray(array)
     }
 
   def jObject: Gen[unsafe.JObject] =
@@ -54,7 +54,7 @@ object Generators {
       (0 until size).foreach { index =>
         array(index) = unsafe.JField(string, randomJValue)
       }
-      scala.json.ast.unsafe.JObject(array)
+      unsafe.JObject(array)
     }
 
   def jValue: Gen[unsafe.JValue] =

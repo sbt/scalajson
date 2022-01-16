@@ -2,7 +2,7 @@ package benchmark
 
 import org.scalameter._
 
-import scala.json.ast
+import sjsonnew.shaded.scalajson.ast
 
 object Generators {
   def jBoolean: Gen[ast.JBoolean] =
