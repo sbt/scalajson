@@ -65,8 +65,8 @@ jobs:
         sbt -v ++$SCALA_211! "benchmarkJVM/Test/compile"
         sbt -v ++$SCALA_211! "benchmarkJS/Test/compile"
         sbt -v ++$SCALA_210! "test"
-        sbt -v ++$SCALA_210! "benchmarkJVM/Test/compile"
-        sbt -v ++$SCALA_210! "benchmarkJS/Test/compile"
+        # sbt -v ++$SCALA_210! "benchmarkJVM/Test/compile"
+        # sbt -v ++$SCALA_210! "benchmarkJS/Test/compile"
     - name: Cleanup
       shell: bash
       run: |
