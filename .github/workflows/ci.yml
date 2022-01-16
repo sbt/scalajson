@@ -45,7 +45,8 @@ jobs:
       if: ${{ matrix.jobtype == 1 }}
       shell: bash
       run: |
-        sbt -v clean scalafmtCheckAll coverage test coverageReport
+        # sbt -v clean scalafmtCheckAll coverage test coverageReport
+        sbt -v test
         sbt -v ++$SCALA_212! "test"
         sbt -v ++$SCALA_212! "benchmarkJVM/Test/compile"
         sbt -v ++$SCALA_212! "benchmarkJS/Test/compile"
@@ -58,7 +59,8 @@ jobs:
       if: ${{ matrix.jobtype == 3 }}
       shell: bash
       run: |
-        sbt -v scalafmtCheckAll coverage test coverageReport
+        # sbt -v scalafmtCheckAll coverage test coverageReport
+        sbt test
         sbt -v ++$SCALA_211! "test"
         sbt -v ++$SCALA_211! "benchmarkJVM/Test/compile"
         sbt -v ++$SCALA_211! "benchmarkJS/Test/compile"
